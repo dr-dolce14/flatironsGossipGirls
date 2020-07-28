@@ -52,7 +52,7 @@ div#logo {
     flex-wrap: wrap;
   }  
 
-  .flex-item {
+  .box {
     background: pink;
     padding: 5px;
     width: 100px;
