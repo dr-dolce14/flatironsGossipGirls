@@ -59,11 +59,13 @@ div#logo {
     height: 50px;
     margin: 10px;
     
-    line-height: 50px;
+    line-height: 20px;
     color: white;
     font-weight: bold;
-    font-size: 2;
+    font-size: 0.5;
     text-align: center;
+    position:relative;
+    top: 0px;
   }
 
 div#news-feed {
@@ -163,3 +165,4 @@ ul#celebrity-followings-list {
     top:0px;
 
 }
+
