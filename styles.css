@@ -1,0 +1,165 @@
+
+div#logo {
+    width: 150px;
+    height: 150px;
+}
+
+#logo img {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    left:0;
+    top:0;
+}
+
+#follow-button {
+    position: absolute;
+    float: right;
+    margin-left: 40px;
+    font-family: Snell Roundhand;
+}
+
+#wrapper {
+    width: 1400px;
+    overflow: hidden; /* add this to contain floated children */
+}
+#logo {
+    width: 300px;
+    float:left; /* add this */
+}
+#celebrity-container {
+    width: 1245px;
+    height: 150px;
+    float: left;
+     /* add this */
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+  }
+  
+  .wrap    { 
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }  
+
+  .flex-item {
+    background: pink;
+    padding: 5px;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    
+    line-height: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 2;
+    text-align: center;
+  }
+
+div#news-feed {
+    text-align: center;
+    width: 550px;
+    height: 800px;
+    position:relative; 
+    left:500px; 
+    top:100px;
+    border-color: pink	;
+    border-style: solid;
+    border-width: 5px;   
+    -webkit-box-shadow:0 0 20px pink; 
+    -moz-box-shadow: 0 0 20px pink; 
+    box-shadow:0 0 500px pink;
+}
+
+#news-feed img {
+    width: 500px;
+    height: 500px;
+}
+
+div#reaction-table {
+    text-align: center;
+    width: 545px;
+    height: 100px;
+    position:relative; 
+    left:-2px;
+    border-style: solid;
+    border-color: pink;
+    border-width: 5px;  
+}
+
+ul#reaction-list {
+	min-width: 696px;
+	list-style: none;
+    padding-top: 20px;
+    position:relative; 
+    left:-110px;
+    top:-25px;
+	}
+	ul#reaction-list li {
+        display: inline;
+        font-size:30px;
+        padding: 0px 15px;
+    }
+
+.like-span {
+    font-size:20px;
+    position:relative; 
+    left:-25px;
+    top:40px;
+}
+
+div#account-info {
+    text-align: center;
+    width: 200px;
+    height: 300px;
+    border-style: solid;
+    position:relative; 
+    left:10px; 
+    top:-750px;
+    color: white;
+    background-color: pink;
+
+}
+
+#user-img img {
+    width: 100px;
+    height: 100px;
+    position:relative; 
+    left:0px;
+    top:0px;
+}
+
+div#user-info {
+    line-height: .5;
+}
+
+div#celebrity-followings {
+    text-align: center;
+    width: 200px;
+    height: 300px;
+    border-style: solid;
+    position:relative; 
+    left:10px; 
+    top:-750px;
+    color: white;
+    background-color: pink;
+}
+
+ul#celebrity-followings-list {
+    list-style-type: none;
+    font-size:15px;
+    position:relative; 
+    left:-20px;
+    top:0px;
+
+}
