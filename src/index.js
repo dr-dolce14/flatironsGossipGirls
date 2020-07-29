@@ -3,6 +3,7 @@ console.log("IS THIS THING ON???")
 document.addEventListener('DOMContentLoaded', () => {
     CELEB_URL = "http://localhost:3000/celebrities"
     POST_URL = "http://localhost:3000/posts"
+    USER_URL = "http://localhost:3000/users"
     const celebUl = document.querySelector('.flex-container')
 
 
@@ -173,8 +174,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         })
+    } // end of clickHandler function
+
+    const followHandler = () => {
+      const followButton = document.getElementById('follow-button')
+      followButton.addEventListener('click', function(e) {
+          const celebrityNames = document.querySelectorAll('.box')
+          celebrityNames.forEach(li => {
+              if (li.style.color === 'red'){
+                  console.log(li)
+                  const myList = document.getElementById("celebrity-followings-list")
+                  myList.innerHTML += `
+                  <li>
+                    <h4>${li.textContent} <button id="unfollow">Unfollow</button>
+                </li>`
+                li.style.color = 'white'
+
+                fetch("http://localhost:3000/users/1", {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json"
+                    },
+                    body: JSON.stringify({ follows: li })
+                  })
+                  .then(response => response.json())
+                  .then(data => console.log(data))
+              }
+             
+          
+          })
+      })
     }
 
+
+    followHandler()
     fetchCelebs()
     clickHandler()
 }) // end of DOM Content Loaded
