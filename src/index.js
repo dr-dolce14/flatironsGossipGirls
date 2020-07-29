@@ -25,16 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
        li.dataset.occupation = celebrity.occupation
        li.dataset.id = celebrity.id
        celebUl.append(li)
-       
-    //    celebrity.posts.forEach( post => renderPost(post))
-    } // <- take this out of here and put it in our clickhandler if statement 
+    } 
+
 
     function renderPost(post){
-        // console.log(post)
         const newsFeed = document.getElementById("news-feed")
-        // newsFeed.innerHTML = ''
         newsFeed.innerHTML += `
-        <div class="post-div" id=${post.celebrity_id}>
+        <div class="post-div" id=${post.id}>
         <h1>${post.headline}</h1>
         <img src= ${post.image}>
         <br/>
@@ -43,26 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
         <br/>
         <div id="reaction-table">
             <ul id="reaction-list">
-                <li>😍 
-                    <span class="like-span">9</span>
+                <li id="joy">😍 
+                    <span class="like-span">${post.joy}</span>
                 </li>
-                <li>😱
-                    <span class="like-span">3</span>
+                <li id="shock">😱
+                    <span class="like-span">${post.shock}</span>
                 </li>
-                <li>😢
-                    <span class="like-span">5</span>
+                <li id="sad">😢
+                    <span class="like-span">${post.sad}</span>
                 </li>
-                <li>😡
-                    <span class="like-span">2</span>
+                <li id="anger">😡
+                    <span class="like-span">${post.anger}</span>
                 </li>
-                <li>💩
-                    <span class="like-span">0</span>
+                <li id="poop">💩
+                    <span class="like-span">${post.poop}</span>
                 </li>
             </ul>
         </div>
     </div
-        `
-        // console.log(post)
+     `
+
+     
     }
 
     
@@ -72,50 +70,110 @@ document.addEventListener('DOMContentLoaded', () => {
             if(e.target.matches(".box")){
                 const thisCeleb = e.target
                 thisCeleb.style.color = 'red'
-                fetch(POST_URL)
+                 
+                fetch(`${CELEB_URL}/${thisCeleb.dataset.id}`)
                 .then(res => res.json())
-                .then(celebrityPost => {
-                    celebrityPost.forEach 
-                // const postDiv = document.querySelectorAll('.post-div')
-                // console.log(postDiv)
-                // postDiv.forEach(post => {
-                //     console.log(post)
-                //     if (thisCeleb.dataset.id === post.id) {
-                //         renderPost(post)
-                //         console.log(thisCeleb)
-    
-                //     } 
-                // })
-             
+                .then(celebrityPost => renderPosts(celebrityPost.posts))
+
+                const renderPosts = (PostsArray) => {
+                    PostsArray.forEach(post => {
+                        renderPost(post)
+                    })
+                }
             }
+            if(e.target.matches("#joy")){
+                const joyButton = e.target 
+                const joySpan = joyButton.querySelector("span")
+                const newJoyNumber = parseInt(joySpan.textContent, 10) + 1
+                joySpan.textContent = newJoyNumber
+
+                const id = joyButton.closest("div").parentElement.id
+
+                fetch(`${POST_URL}/${id}`, {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json"
+                    },
+                    body: JSON.stringify({ joy: newJoyNumber })
+                  })
+            }
+
+            if(e.target.matches("#shock")){
+                const shockButton = e.target 
+                const shockSpan = shockButton.querySelector("span")
+                const newShockNumber = parseInt(shockSpan.textContent, 10) + 1
+                shockSpan.textContent = newShockNumber
+
+                const id = shockButton.closest("div").parentElement.id
+
+                fetch(`${POST_URL}/${id}`, {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json"
+                    },
+                    body: JSON.stringify({ shock: newShockNumber })
+                  })
+            }
+
+            if(e.target.matches("#sad")){
+                const sadButton = e.target 
+                const sadSpan = sadButton.querySelector("span")
+                const newSadNumber = parseInt(sadSpan.textContent, 10) + 1
+                sadSpan.textContent = newSadNumber
+
+                const id = sadButton.closest("div").parentElement.id
+
+                fetch(`${POST_URL}/${id}`, {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json"
+                    },
+                    body: JSON.stringify({ sad: newSadNumber })
+                  })
+            }
+
+            if(e.target.matches("#anger")){
+                const angerButton = e.target 
+                const angerSpan = angerButton.querySelector("span")
+                const newAngerNumber = parseInt(angerSpan.textContent, 10) + 1
+                angerSpan.textContent = newAngerNumber
+
+                const id = angerButton.closest("div").parentElement.id
+
+                fetch(`${POST_URL}/${id}`, {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json"
+                    },
+                    body: JSON.stringify({ anger: newAngerNumber })
+                  })
+            }
+
+            if(e.target.matches("#poop")){
+                const poopButton = e.target 
+                const poopSpan = poopButton.querySelector("span")
+                const newPoopNumber = parseInt(poopSpan.textContent, 10) + 1
+                poopSpan.textContent = newPoopNumber
+
+                const id = poopButton.closest("div").parentElement.id
+
+                fetch(`${POST_URL}/${id}`, {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json"
+                    },
+                    body: JSON.stringify({ poop: newPoopNumber })
+                  })
+            }
+
+
         })
     }
-
-    // make a separate fetch request to the specific id of the celebrity we're clicking
-
-
-
-    // document.addEventListener('mouseover', function(e) {
-    //     if(e.target.matches('.flex-item')) {
-    //         e.target.innerText = "Hi"
-    //     }
-    // })
-
-    // document.addEventListener('mouseleave', function(e) {
-    //     if(e.target.matches('.flex-item')) {
-    //         e.target.innerText = e.target.dataset.name
-    //     }
-    // })
-
-    /*
-
-    breedUl.addEventListener("click", function(e) {
-         e.target.style.color = 'red'
-    });
-
-    */
-
-
 
     fetchCelebs()
     clickHandler()
