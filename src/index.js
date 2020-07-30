@@ -203,48 +203,93 @@ document.addEventListener('DOMContentLoaded', () => {
                   })
             }
 
+            if(e.target.matches('#unfollow')) {
+                const unfollowButton = e.target
+                const celebrityName = unfollowButton.parentElement.parentElement
+                console.log(celebrityName)
+                fetch(`http://localhost:3000/follows/${celebrityName.id}`, {
+                    method: "DELETE"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    celebrityName.remove()
+                })
+              
+            }
+
 
         })
     } // end of clickHandler function
 
     const followHandler = () => {
-      const followButton = document.getElementById('follow-button')
-      followButton.addEventListener('click', function(e) {
-          const celebrityNames = document.querySelectorAll('.selected-box') 
-          celebrityNames.forEach(li => {
-                const myList = document.getElementById("celebrity-followings-list")
-                myList.innerHTML += `
-                <li>
-                <h4>${li.textContent} <button id="unfollow">Unfollow</button>
-                </li>`
-
-                
-                li.className = 'box' //returns the li tag to its original class
-
-                fetch("http://localhost:3000/follows", {
-                    method: "POST",
-                    headers: {
-                      "content-type": "application/json",
-                      "accept": "application/json"
-                    },
-                    body: JSON.stringify({user_id: 1, celebrity_id: li.dataset.id  })
-                  })
-                //   .then(response => response.json())
-                //   .then(follow => )
-                
-                })
-
+        const followButton = document.getElementById('follow-button')
+        followButton.addEventListener('click', function(e) {
+            const celebrityNames = document.querySelectorAll('.selected-box')
+            celebrityNames.forEach(li => {
+                createFollow(li)
             })
-        } // end of follow handler 
+
+        })
+    }
+
+    const createFollow = (li) => {
+        fetch("http://localhost:3000/follows", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "appliation/json"
+            },
+            body: JSON.stringify({user_id: 1, celebrity_id: li.dataset.id})
+        })
+        .then(response => response.json())
+        .then(follow => postFollow(follow, li))
+    }
+
+   const postFollow = (follow, li) => {
+      const myList = document.getElementById('celebrity-followings-list')
+      myList.innerHTML += `
+            <li id=${follow.id}>
+              <h4>${li.textContent} <button id="unfollow">Unfollow</button></h4>
+            </li>`
+         li.className = 'box' //returns the li tag to its original class
+      
+   }
+
+   function fetchFollows() {
+    fetch("http://localhost:3000/users/1")
+    .then(response => response.json())
+    .then(user => renderFollow(user))
+
+   }
+
+   
+   function renderFollow(user) {
+    const myList = document.getElementById('celebrity-followings-list')
+    const li = document.createElement('li')
+    user.follows.forEach(follow => {
+        li.id = follow.id
+        myList.append(li)
+    })
+    user.celebrity_followers.forEach(celeb => {
+        li.innerHTML += `
+        <h4>${celeb.name} <button id="unfollow">Unfollow</button></h4>
+        `
+    })
+}
+   
+  
+
+   
+
+   
 
 
-        //event listener 
-        //fetch 
-        //method to update the dom 
-        
 
 
-        
+    
+
+
+        fetchFollows()
         clickHandler() //had to switch order of executions !!
         followHandler()
         fetchCelebs()
