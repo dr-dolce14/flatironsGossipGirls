@@ -29,7 +29,7 @@ div#logo {
 }
 #celebrity-container {
     width: 1245px;
-    height: 150px;
+    height: 160px;
     float: left;
      /* add this */
 }
@@ -68,6 +68,27 @@ div#logo {
     top: 0px;
   }
 
+  .selected-box {
+    background: pink;
+    padding: 5px;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    
+    line-height: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.5;
+    text-align: center;
+    position:relative;
+    top: 0px;
+    -webkit-box-shadow:0 0 10px	#FF1493; 
+    -moz-box-shadow: 0 0 10px #FF1493; 
+    box-shadow:0 0 20px #FF1493;
+
+    /* this css allows the .selected box to glow! */
+  }
+
 div#news-feed {
     text-align: center;
     width: 550px;
@@ -75,12 +96,18 @@ div#news-feed {
     position:relative; 
     left:500px; 
     top:100px;
+}
+
+.post-div {
     border-color: pink	;
     border-style: solid;
     border-width: 5px;   
     -webkit-box-shadow:0 0 20px pink; 
     -moz-box-shadow: 0 0 20px pink; 
     box-shadow:0 0 500px pink;
+    /* 
+        To fix our css problem, we had to seperate some of the css and put it into the individual divs as opposed to the newsfeed div!
+    */
 }
 
 #news-feed img {
@@ -90,7 +117,7 @@ div#news-feed {
 
 div#reaction-table {
     text-align: center;
-    width: 545px;
+    width: 535px;
     height: 100px;
     position:relative; 
     left:-2px;
@@ -165,4 +192,6 @@ ul#celebrity-followings-list {
     top:0px;
 
 }
+
+
 

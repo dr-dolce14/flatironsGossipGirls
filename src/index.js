@@ -58,19 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 </li>
             </ul>
         </div>
-    </div
+    </div>
+    <br/>
+    <br/>
      `
 
      
     }
 
-    
-
     const clickHandler = () => {
         document.addEventListener("click", function(e){
             if(e.target.matches(".box")){
                 const thisCeleb = e.target
-                thisCeleb.style.color = 'red'
+                thisCeleb.className = 'selected-box'  //changed classname from box to selected-box so we can add some new properties ooooo
                  
                 fetch(`${CELEB_URL}/${thisCeleb.dataset.id}`)
                 .then(res => res.json())
@@ -87,6 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const joySpan = joyButton.querySelector("span")
                 const newJoyNumber = parseInt(joySpan.textContent, 10) + 1
                 joySpan.textContent = newJoyNumber
+
+                emojisplosion({ //this function is from the emoji library 
+                    className: "my-emoji-styles", //we had to add the class name to get the style attributes 
+                    emojiCount: 100, //number of emojis we want exploded 
+                    emojis: ["😍"], //type of emoji we want 
+                  });
 
                 const id = joyButton.closest("div").parentElement.id
 
@@ -106,6 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newShockNumber = parseInt(shockSpan.textContent, 10) + 1
                 shockSpan.textContent = newShockNumber
 
+                emojisplosion({
+                    className: "my-emoji-styles",
+                    emojiCount: 100,
+                    emojis: ["😱"],
+                });
+
                 const id = shockButton.closest("div").parentElement.id
 
                 fetch(`${POST_URL}/${id}`, {
@@ -123,6 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sadSpan = sadButton.querySelector("span")
                 const newSadNumber = parseInt(sadSpan.textContent, 10) + 1
                 sadSpan.textContent = newSadNumber
+
+                emojisplosion({
+                    className: "my-emoji-styles",
+                    emojiCount: 100,
+                    emojis: ["😢"],
+                });
+
 
                 const id = sadButton.closest("div").parentElement.id
 
@@ -142,6 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newAngerNumber = parseInt(angerSpan.textContent, 10) + 1
                 angerSpan.textContent = newAngerNumber
 
+                emojisplosion({
+                    className: "my-emoji-styles",
+                    emojiCount: 100,
+                    emojis: ["😡"],
+                });
+
                 const id = angerButton.closest("div").parentElement.id
 
                 fetch(`${POST_URL}/${id}`, {
@@ -159,6 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const poopSpan = poopButton.querySelector("span")
                 const newPoopNumber = parseInt(poopSpan.textContent, 10) + 1
                 poopSpan.textContent = newPoopNumber
+
+                emojisplosion({
+                    className: "my-emoji-styles",
+                    emojiCount: 100,
+                    emojis: ["💩"],
+                });
 
                 const id = poopButton.closest("div").parentElement.id
 
@@ -179,16 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const followHandler = () => {
       const followButton = document.getElementById('follow-button')
       followButton.addEventListener('click', function(e) {
-          const celebrityNames = document.querySelectorAll('.box')
+          const celebrityNames = document.querySelectorAll('.selected-box') //query selects all the boxes with the new classname given when clicked, .selected-box, we dont even need an id statment anymore!
           celebrityNames.forEach(li => {
-              if (li.style.color === 'red'){
-                  console.log(li)
-                  const myList = document.getElementById("celebrity-followings-list")
-                  myList.innerHTML += `
-                  <li>
-                    <h4>${li.textContent} <button id="unfollow">Unfollow</button>
+                const myList = document.getElementById("celebrity-followings-list")
+                myList.innerHTML += `
+                <li>
+                <h4>${li.textContent} <button id="unfollow">Unfollow</button>
                 </li>`
-                li.style.color = 'white'
+                
+                li.className = 'box' //returns the li tag to its original class
 
                 fetch("http://localhost:3000/users/1", {
                     method: "PATCH",
@@ -200,15 +230,15 @@ document.addEventListener('DOMContentLoaded', () => {
                   })
                   .then(response => response.json())
                   .then(data => console.log(data))
-              }
+             // }
              
           
           })
       })
-    }
+    } // end of follow handler 
 
-
+    clickHandler() //had to switch order of executions !!
     followHandler()
     fetchCelebs()
-    clickHandler()
+    
 }) // end of DOM Content Loaded
