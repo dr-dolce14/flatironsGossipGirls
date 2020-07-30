@@ -210,35 +210,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const followHandler = () => {
       const followButton = document.getElementById('follow-button')
       followButton.addEventListener('click', function(e) {
-          const celebrityNames = document.querySelectorAll('.selected-box') //query selects all the boxes with the new classname given when clicked, .selected-box, we dont even need an id statment anymore!
+          const celebrityNames = document.querySelectorAll('.selected-box') 
           celebrityNames.forEach(li => {
                 const myList = document.getElementById("celebrity-followings-list")
                 myList.innerHTML += `
                 <li>
                 <h4>${li.textContent} <button id="unfollow">Unfollow</button>
                 </li>`
+
                 
                 li.className = 'box' //returns the li tag to its original class
 
-                fetch("http://localhost:3000/users/1", {
-                    method: "PATCH",
+                fetch("http://localhost:3000/follows", {
+                    method: "POST",
                     headers: {
                       "content-type": "application/json",
                       "accept": "application/json"
                     },
-                    body: JSON.stringify({ follows: li })
+                    body: JSON.stringify({user_id: 1, celebrity_id: li.dataset.id  })
                   })
-                  .then(response => response.json())
-                  .then(data => console.log(data))
-             // }
-             
-          
-          })
-      })
-    } // end of follow handler 
+                //   .then(response => response.json())
+                //   .then(follow => )
+                
+                })
 
-    clickHandler() //had to switch order of executions !!
-    followHandler()
-    fetchCelebs()
+            })
+        } // end of follow handler 
+
+
+        //event listener 
+        //fetch 
+        //method to update the dom 
+        
+
+
+        
+        clickHandler() //had to switch order of executions !!
+        followHandler()
+        fetchCelebs()
     
 }) // end of DOM Content Loaded
