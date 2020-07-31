@@ -110,6 +110,45 @@ div#news-feed {
     */
 }
 
+.home-image {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 50px;
+  }
+  .home-image:before,
+  .home-image:after, home-image {
+    position: absolute;
+    content: '';
+    height: 300%;
+    width: 300%;
+    top: 100%;
+    left: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 40px pink;
+    animation: glow-grow 2s ease-out infinite;
+  }
+  .home-image:after {
+    animation-delay: .66s;
+  }
+  .home-image{
+    animation-delay: 1.33s;
+    }
+  @keyframes glow-grow {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
 #news-feed img {
     width: 500px;
     height: 500px;
@@ -191,6 +230,10 @@ ul#celebrity-followings-list {
     left:-20px;
     top:0px;
 
+}
+
+.cursor {
+    pointer-events: none
 }
 
 
